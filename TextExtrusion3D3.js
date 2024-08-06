@@ -188,6 +188,25 @@ const TextExtrusion3D = () => {
           </a>
         </div>
       )}
+      // add prompt
+     <div className="w-full max-w-md space-y-2">
+      <input
+        type="text"
+        value={aiPrompt}
+        onChange={(e) => setAiPrompt(e.target.value)}
+        className="p-2 border border-gray-300 rounded w-full"
+        placeholder="Enter a topic for AI text suggestions"
+      />
+      <button
+        onClick={generateAISuggestions}
+        disabled={isGeneratingSuggestions}
+        className={`w-full px-4 py-2 text-white rounded transition-colors ${
+          isGeneratingSuggestions ? 'bg-gray-400' : 'bg-purple-500 hover:bg-purple-600'
+        }`}
+      >
+        {isGeneratingSuggestions ? 'Generating...' : 'Get AI Suggestions'}
+      </button>
+      </div>
     </div>
   );
 };
