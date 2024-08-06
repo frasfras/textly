@@ -2,12 +2,29 @@ import React, { useState, useRef } from 'react';
 import { upload } from "@canva/asset";
 import { addNativeElement } from "@canva/design";
 
+/ Simulated AI service
+const simulateAITextSuggestions = async (prompt) => {
+  // In a real scenario, this would be an API call to an AI service
+  await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API delay
+  const suggestions = [
+    `Innovative ${prompt}`,
+    `${prompt} Revolution`,
+    `Next-Gen ${prompt}`,
+    `${prompt} Reimagined`,
+    `Future of ${prompt}`
+  ];
+  return suggestions;
+};
+
 const TextExtrusion3D = () => {
   const [text, setText] = useState('3D Text');
   const [shadowLength, setShadowLength] = useState(2);
   const [fontFamily, setFontFamily] = useState('Arial, sans-serif');
   const [svgUrl, setSvgUrl] = useState('');
   const [isUploading, setIsUploading] = useState(false);
+  const [aiPrompt, setAiPrompt] = useState('');
+  const [aiSuggestions, setAiSuggestions] = useState([]);
+  const [isGeneratingSuggestions, setIsGeneratingSuggestions] = useState(false);
   const svgRef = useRef(null);
 
   const fontOptions = [
@@ -64,7 +81,19 @@ const TextExtrusion3D = () => {
       setIsUploading(false);
     }
   };
-
+  const generateAISuggestions = async () => {
+      if (!aiPrompt) return;
+      setIsGeneratingSuggestions(true);
+      try {
+        const suggestions = await simulateAITextSuggestions(aiPrompt);
+        setAiSuggestions(suggestions);
+      } catch (error) {
+        console.error("Error generating AI suggestions:", error);
+        alert("Failed to generate AI suggestions. Please try again.");
+      } finally {
+        setIsGeneratingSuggestions(false);
+      }
+    };
   return (
     <div className="flex flex-col items-center justify-center p-4 space-y-4">
       <input
