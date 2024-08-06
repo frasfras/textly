@@ -206,6 +206,18 @@ const TextExtrusion3D = () => {
       >
         {isGeneratingSuggestions ? 'Generating...' : 'Get AI Suggestions'}
       </button>
+        {aiSuggestions.length > 0 && (
+          <div className="w-full max-w-md">
+            <p className="text-sm font-medium text-gray-700 mb-1">AI Suggestions:</p>
+            <ul className="list-disc pl-5">
+              {aiSuggestions.map((suggestion, index) => (
+                <li key={index} className="cursor-pointer text-blue-600 hover:text-blue-800" onClick={() => setText(suggestion)}>
+                  {suggestion}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
